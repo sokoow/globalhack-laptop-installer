@@ -2,11 +2,11 @@
 
 Recent developments in the world have pushed a lot of people to do remote work,
 and students/kids to use remote education systems. There's basically two groups of
-people now - those who are equipped to do remote, and those who don't for some reason.
+people now - those who are equipped to do remote, and those who are not for some reason.
 
 Let's focus on a 'new' mode of education for a moment.
 
-During a recent local surveys in Poland, teachers and parents in Warsaw alone have
+During a recent local survey in Poland, teachers and parents in Warsaw alone have
 estimated a need for 20k+ extra laptops to be available for their kids/students
 in order for them to be studying at all! There's couple of problems that have been
 identified:
