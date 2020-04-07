@@ -64,8 +64,8 @@ It's fairly easy, follow these steps please:
 - In order to boot from the USB, you need to download Etcher: https://www.balena.io/etcher/ . It's a tool to convert your iso file into a bootable USB key (USB pendrive required here).
 - Now the tricky part: you need to connect the laptop you'll be imaging to your wireless router with an Ethernet cable. Making this system work through WiFi is very hard (impossible at the moment), so you'll need to connect a cable to your laptop.
 - Once your laptop is ready and connected to your router, boot from CD or USB. In most laptops you need to press F10 or F12 when you turn it on, and select CD or USB boot.
-- You will see a small blue menu, choose your Ubuntu language there
-*WARNING: This will erase your laptop's hard drive and install a brand new OS, make sure you want that*
+- You will see a small blue menu, choose your Ubuntu language there. 
+**WARNING: This will erase your laptop's hard drive and install a brand new OS, make sure you want that**
 - After you've chosen your Ubuntu language flavor, the process is fully automatic. Stay patient, a lot of messages go through the screen. It may get especially stuck at a customization part (step will contain "Preseed" text)
 - Wait, probably like an hour
 - Wait till your machine reboots itself.
