@@ -1,4 +1,4 @@
-baseURL = "https://sokoow.github.io/globalhack-laptop-installer"
+baseURL = "https://laptops.thereshope.eu"
 languageCode = "en-us"
 title = "Easy laptop automated imager"
 theme = "book"
