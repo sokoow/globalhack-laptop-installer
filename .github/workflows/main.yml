@@ -8,19 +8,15 @@ on:
 
 jobs:
 
-  source_checkout:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: check the code out
-      uses: actions/checkout@master
-
   build:
 
     runs-on: ubuntu-latest
 
     steps:
+
+    - name: check the code out
+      uses: actions/checkout@master
+
     - name: check some stuff
       run: pwd
 
