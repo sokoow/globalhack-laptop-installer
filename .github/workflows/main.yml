@@ -7,10 +7,12 @@ on:
     branches: [ master ]
 
 jobs:
+
   source_checkout:
 
     runs-on: ubuntu-latest
 
+    steps:
     - name: check the code out
       uses: uses: actions/checkout@master
 
