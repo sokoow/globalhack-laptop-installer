@@ -18,6 +18,8 @@ jobs:
     - name: check some stuff
       run: export
 
+    - name: check some stuff
+      run: ls -al
 
     - name: Login to docker hub
       uses: actions-hub/docker/login@master
