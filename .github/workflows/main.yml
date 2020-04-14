@@ -13,9 +13,6 @@ jobs:
 
     steps:
 
-    - name: Describe env params
-      run: export
-
     - name: Login to docker hub
       uses: actions-hub/docker/login@master
       env:
@@ -23,7 +20,7 @@ jobs:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Build :latest
-      run: docker build -t ${GITHUB_REPOSITORY}:latest actions-worker/Dockerfile
+      run: docker build -t ${GITHUB_REPOSITORY}:latest ${GITHUB_WORKSPACE}/actions-worker/Dockerfile
 
     - name: Push to docker hub :latest
       uses: actions-hub/docker@master
