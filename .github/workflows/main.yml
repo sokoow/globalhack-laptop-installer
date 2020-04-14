@@ -12,6 +12,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+    - name: Describe env params
+      run: export
+
     - name: Login to docker hub
       uses: actions-hub/docker/login@master
       env:
