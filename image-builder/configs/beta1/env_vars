@@ -1,0 +1,2 @@
+export CHANNEL=beta1
+export ENDPOINT=raw.githubusercontent.com/sokoow/globalhack-laptop-installer

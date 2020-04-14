@@ -1,0 +1,258 @@
+## Options to set on the command line
+
+#### Contents of the preconfiguration file (for &releasename;)
+### Localization
+debug mode BOOT_DEBUG=5
+d-i	dbg/flags string all-x
+ubiquity oem-config/id string STUDENT
+
+#skip the screens not required
+ubiquity localechooser/translation/none-yet note
+ubiquity localechooser/translation/no-select note
+ubiquity ubiquity/online note
+ubiquity ubiquity/summary note
+#ubiquity/success_command string chroot /target sh -c "sudo touch /install_done2"
+
+# LOCALE SECTION
+
+d-i	localechooser/shortlist en_US
+d-i localechooser/languagelist select en
+d-i	localechooser/shortlist seen true
+d-i languagechooser/language-name-fb select English
+d-i debian-installer/locale string en_US.UTF-8
+d-i	debian-installer/fallbacklocale string en_US.UTF-8
+d-i	localechooser/supported-locales	multiselect en_US
+d-i	pkgsel/language-pack-patterns	string en_US
+d-i	pkgsel/install-laguage-support	boolean true
+d-i	pkgsel/install-laguage-support	select en_US
+d-i oem-config/enable boolean true
+oem-config	oem-config/steps multiselect language, timezone, keyboard, user, network, tasks
+d-i pkgsel/install-language-support boolean false
+tasksel tasksel/first multiselect ubuntu-desktop
+
+# Keyboard selection
+
+d-i kbd-chooser/method select us
+d-i console-setup/ask_detect boolean false
+d-i console-setup/layout string us
+d-i console-keymaps-at/keymap select us
+ubiquity console-setup/ask_detect boolean false
+ubiquity console-setup/layoutcode string us
+ubiquity console-setup/modelcode string SKIP
+keyboard-configuration console-setup/ask_detect boolean false
+keyboard-configuration console-setup/detected note
+keyboard-configuration keyboard-configuration/layout select English
+keyboard-configuration keyboard-configuration/unsupported_layout boolean true
+keyboard-configuration keyboard-configuration/store_defaults_in_debconf_db boolean true
+keyboard-configuration keyboard-configuration/variantcode string
+
+# Detect keyboard layout?
+
+keyboard-configuration console-setup/ask_detect boolean false
+keyboard-configuration console-setup/detected note
+keyboard-configuration keyboard-configuration/model select Generic 105-key (Intl) PC
+
+
+# NETWORK
+
+d-i	netcfg/get_hostname	string student-laptop
+d-i	netcfg/get_domain string student.test
+d-i	netcfg/choose_interface	select auto
+
+#d-i netcfg/no_default_route boolean
+d-i netcfg/wireless_wep string
+
+
+# TIME
+
+d-i time/zone string America/New_York
+d-i clock-setup/utc-auto boolean true
+d-i clock-setup/utc boolean true
+clock-setup	clock-setup/utc	boolean true
+clock-setup	clock-setup/ntp-server string 0.uk.pool.ntp.org
+clock-setup	clock-setup/ntp	boolean true
+
+# USERS
+
+# HOME DIRS
+
+user-setup-udeb	passwd/shadow	boolean	true
+adduser	adduser/homedir-permission	boolean	true
+
+# USERS
+
+d-i	passwd/root-login	boolean false
+
+# Default user, we can get away with a recipe to change this
+# The password is encrypted using the following
+# command line:
+#
+# printf "r00tme" | mkpasswd -s -m md5
+
+d-i passwd/user-fullname string student
+d-i passwd/username string student
+d-i passwd/user-password password student
+#d-i	passwd/user-password-crypted passwd $6...
+d-i passwd/user-password-again password student
+d-i user-setup/encrypt-home boolean false
+user-setup-udeb user-setup/encrypt-home boolean false
+d-i user-setup/allow-password-weak boolean true
+
+# Choices: Dialog, Readline, Gnome, Kde, Editor, Noninteractive
+d-i debconf debconf/frontend select Noninteractive
+
+
+# DISK SETUP
+
+# The presently available methods are: "regular", "lvm" and "crypto"
+d-i	partman-auto/method	string lvm
+d-i	partman-lvm/device_remove_lvm boolean true
+d-i	partman-md/device_remove_md boolean true
+d-i	partman-lvm/confirm boolean true
+ubiquity partman/unmount_active boolean false
+d-i	partman-auto-lvm/guided_size string max
+d-i	partman-auto-lvm/new_vg_name string vg0
+d-i	partman-lvm/device_remove_lvm_span boolean true
+d-i	partman-auto/purge_lvm_from_device boolean true
+d-i	partman/default_filesystem string ext4
+d-i	partman/mount_style select uuid
+
+d-i	partman-auto/expert_recipe string \
+#lvm-crypto :: \
+2000 500 3000 ext3 \
+	$bootable{ } \
+	$primary{ } \
+	$defaultignore{ } \
+	method{ format } \
+	format{ } \
+	use_filesystem{ }\
+	filesystem{ ext3 }\
+	mountpoint{ /boot }\
+. \
+4192 4000 8192+10% linux-swap \
+	$lvmok{ } \
+	lv_name{ swap } \
+	method{ swap } \
+	format{ } \
+. \
+8000 10000 1000000000 $default_filesystem \
+	$defaultignore{ } \
+	$lvmok{ } \
+	lv_name{ root } \
+	method{ format } \
+	format{ } \
+	use_filesystem{ }\
+	$default_filesystem{ }\
+	mountpoint{ / }\
+.
+
+d-i	partman-partitioning/confirm_write_new_label boolean true
+d-i	partman/choose_partition select finish
+d-i	partman/confirm boolean true
+d-i	partman/confirm_nooverwrite boolean true
+
+#d-i	partman-crypto/passphrase password Initial123!
+#d-i	partman-crypto/passphrase-again password Initial123!
+#d-i	partman-crypto/weak_passphrase boolean true
+
+xserver-xorg xserver-xorg/autodetect_monitor boolean true
+xserver-xorg xserver-xorg/config/monitor/lcd boolean true
+xserver-xorg xserver-xorg/config/monitor/selection-method \
+       select medium
+xserver-xorg xserver-xorg/config/monitor/mode-list \
+       select 1024x768 @ 60 Hz
+
+
+# SOFTWARE & UPGRADES
+
+# Whether to upgrade packages after debootstrap.
+# Allowed values: none, safe-upgrade, full-upgrade
+
+pkgsel	pkgsel/update-policy	select	unattended-upgrades
+unattented-upgrades	unattended-upgrades/enable_auto_updates boolean true
+popularity-contest	popularity-contest/participate	boolean false
+
+# MIRRORS
+
+# Use mirror
+#d-i apt-setup/use_mirror boolean true
+#d-i mirror/country string manual
+#d-i	mirror/protocol	select http
+#choose-mirror-bin mirror/protocol string http
+#d-i	mirror/http/hostname	string IP_ADDR
+#choose-mirror-bin mirror/http/hostname string 192.168.4.150
+#choose-mirror-bin mirror/http/directory string /ubuntu
+#d-i	mirror/http/directory	string /ubuntu
+#choose-mirror-bin mirror/suite select maverick
+#d-i debian-installer/allow_unauthenticated string true
+#choose-mirror-bin mirror/http/proxy string
+#d-i	mirror/http/proxy	string
+
+
+# Alternatively: by default, the installer uses CC.archive.ubuntu.com where
+# CC is the ISO-3166-2 code for the selected country. You can preseed this
+# so that it does so without asking.
+
+#d-i mirror/http/mirror select ie.archive.ubuntu.com
+
+# MULTIVERSE/UNIVERSE/RESTRICTED enable
+
+apt-mirror-setup	apt-setup/universe	boolean true
+apt-mirror-setup	apt-setup/multiverse	boolean true
+apt-mirror-setup	apt-setup/restricted	boolean true
+
+# SEC UPDATES
+
+#apt-setup-udeb		apt-setup/services-select	multiselect	security
+#apt-setup-udeb		apt-setup/security_path	string	/desktop
+#apt-setup-udeb		apt-setup/security_host string hostname.pharaoh.local
+
+
+# ADD REPOS
+
+# available [0-9]
+#d-i apt-setup/local0/repository string APT_STRING
+#d-i apt-setup/local0/comment string Package repo
+#d-i apt-setup/local0/source boolean false
+#d-i apt-setup/local0/key http://...dsa.public.key.txt
+
+d-i apt-setup/restricted boolean true
+d-i apt-setup/universe boolean true
+d-i apt-setup/multiverse boolean true
+d-i apt-setup/backports boolean true
+d-i apt-setup/non-free boolean true
+d-i apt-setup/contrib boolean true
+d-i apt-setup/security-updates boolean true
+d-i apt-setup/partner boolean true
+
+# PACKAGE INSTALL
+
+pkgsel	pkgsel/language-packs	multiselect	en, de, pl
+d-i pkgsel/include string ntp mc nscd openssh-server curl git net-tools wget
+d-i	pkgsel/upgrade select full-upgrade
+d-i base-installer/kernel/override-image string linux-image-generic
+
+
+# GRUB
+
+d-i grub-installer/only_debian boolean true
+grub-installer grub-installer/only_debian	boolean true
+#d-i grub-installer/with_other_os boolean true
+
+
+# POST-INSTALL
+
+d-i finish-install/keep-consoles boolean true
+ifplugd	ifplugd/interfaces string eth0
+finish-install finish-install/reboot_in_progress note
+d-i finish-install/reboot_in_progress note
+ubiquity ubiquity/summary note
+ubiquity ubiquity/reboot boolean true
+d-i debian-installer/exit/halt boolean false
+d-i debian-installer/exit/poweroff boolean false
+
+d-i preseed/late_command string chroot /target sh -c "/usr/bin/curl -o /tmp/postinstall https://raw.githubusercontent.com/sokoow/laptop-configs/0.3.3/pre-setup.sh && /bin/sh -x /tmp/postinstall"
+#d-i preseed/late_command string in-target apt-get install -y curl wget mc git python-pip openssh-server screen
+#d-i preseed/late_command string in-target touch /install_done
+#d-i preseed/late_command string chroot /target sh -c "touch /install_done2"
+#ubiquity/success_command string chroot /target sh -c "apt-get update && apt-get install mc openssh-server"

@@ -1,0 +1,21 @@
+{
+    "ubuntu-pl": {
+        "description": "Ubuntu Desktop 19.10(PL)",
+        "url": "http://archive.ubuntu.com/ubuntu/dists/eoan/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/",
+        "answerfile": "url=https://#ENDPOINT/#CHANNEL/ubuntu-desktop-pl.seed",
+        "kernel_args": "auto=true priority=critical"
+    },
+    "ubuntu-en-us": {
+        "description": "Ubuntu Desktop 19.10(EN-US)",
+        "url": "http://archive.ubuntu.com/ubuntu/dists/eoan/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/",
+        "answerfile": "url=https://#ENDPOINT/#CHANNEL/ubuntu-desktop-en-us.seed",
+        "kernel_args": "auto=true priority=critical"
+    },
+    "ubuntu-de": {
+        "description": "Ubuntu Desktop 19.10(DE)",
+        "url": "http://archive.ubuntu.com/ubuntu/dists/eoan/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/",
+        "answerfile": "url=https://#ENDPOINT/#CHANNEL/ubuntu-desktop-de.seed",
+        "kernel_args": "auto=true priority=critical"
+    }
+
+}
