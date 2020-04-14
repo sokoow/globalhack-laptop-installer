@@ -12,6 +12,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: check some stuff
+      run: pwd
+
+    - name: check some stuff
+      run: export
+
 
     - name: Login to docker hub
       uses: actions-hub/docker/login@master
